@@ -64,5 +64,5 @@ install node => <a> "https://nodejs.org/dist/v10.15.3/node-v10.15.3-x64.msi"</a>
 	<li>run segementation.py file</li>
 	
 	
-	<li>YOLOV5 <a>https://drive.google.com/drive/folders/1UnoNeNqVi6w5rD4IDqXDmvzGqk7NO5MZ?usp=sharing</a></li>
+	 YOLOV5 <a>https://drive.google.com/drive/folders/1UnoNeNqVi6w5rD4IDqXDmvzGqk7NO5MZ?usp=sharing</a> 
 </ul>
