@@ -152,25 +152,16 @@ for file in path:
             # cv2.rectangle(frame, (box[0], box[1] - 20), (box[0] + box[2], box[1]), color, -1)
             # cv2.putText(frame, class_list[classid], (box[0], box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, .5, (0, 0, 0))
 
-            for index, cnt in enumerate(contours):  # take one by one segment to send text and shape recognise process
-                (x, y, w, h) = cv2.boundingRect(cnt)  # find segment's bounding rectangle
-                # increase 2 x and y coordination before crop image, because it crop without losing data
-                x = x - 2
-                y = y - 2
-                w = w + 4
-                h = h + 4
-                crop_img = img[y:y + h, x:x + w]  # crop image using bounding rectangle
-                cv2.imshow('crop', crop_img)
-                cv2.waitKey(0)
 
-            # page_height, page_width,channel = input.shape
-            # x=box[0] - 2
-            # y=box[1] - 2
-            # h=box[2] + 4
-            # w=box[3] + 4
-            # crop_img = input[y:y + w, x:x + h]
-            # cv2.imshow('crop', crop_img)
-            # cv2.waitKey(0)
+
+            page_height, page_width,channel = input.shape
+            x=box[0] - 2
+            y=box[1] - 2
+            h=box[2] + 4
+            w=box[3] + 4
+            crop_img = input[y:y + w, x:x + h]
+            cv2.imshow('crop', crop_img)
+            cv2.waitKey(0)
 
 
 
