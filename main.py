@@ -37,6 +37,9 @@ def run(file):
             w = w + 4
             h = h + 4
             crop_img = img[y:y + h, x:x + w]  # crop image using bounding rectangle
+            cv2.imshow('crop', crop_img)
+            cv2.waitKey(0)
+
             width_crop, height_crop, channels_crop = crop_img.shape  # find width and height copped image
 
             if width_crop == 0 or height_crop == 0 or channels_crop == 0:  # check image can zero values
