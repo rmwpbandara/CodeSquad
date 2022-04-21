@@ -56,7 +56,7 @@ install node => <a> "https://nodejs.org/dist/v10.15.3/node-v10.15.3-x64.msi"</a>
 	<li>Wait some time to the process, you can download zip file from browser and unzip the folder and show the html page.</li>
 </ul>
 <ul>
-<h3>Segmentation Module<h3>
+<h3>Segmentation Module</h3>
 <li>pip install -r requirements.txt</li>
 <li>pip install onnx</li>
 <li>python export.py --weights runs/train/exp2/weights/last.pt --include torchscript onnx</li>
