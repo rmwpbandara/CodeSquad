@@ -57,9 +57,12 @@ install node => <a> "https://nodejs.org/dist/v10.15.3/node-v10.15.3-x64.msi"</a>
 </ul>
 <ul>
 <h3>Segmentation Module</h3>
-<li>pip install -r requirements.txt</li>
-<li>pip install onnx</li>
-<li>python export.py --weights runs/train/exp2/weights/last.pt --include torchscript onnx</li>
-<li>pip install opencv-contrib-python</li>
+<code>pip install -r requirements.txt</code>
+<code>pip install onnx</li>
+<code>python export.py --weights runs/train/exp2/weights/last.pt --include torchscript onnx</code>
+<code>pip install opencv-contrib-python</code>
 <li>run segementation.py file</li>
+	
+	
+	<li>YOLOV5 <a>https://drive.google.com/drive/folders/1UnoNeNqVi6w5rD4IDqXDmvzGqk7NO5MZ?usp=sharing</a></li>
 </ul>
