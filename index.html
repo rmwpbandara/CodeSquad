@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<BASE HREF="http://localhost:8080/">
+
+<head>
+    <title>Coder's Cafe</title>
+    <link href="data/lib/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="data/lib/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+    <link href="data/lib/css/grayscale.min.css" rel="stylesheet">
+    <script src="data/lib/js/jquery.min.js"></script>
+    <script src="data/lib/js/bootstrap.min.js"></script>
+</head>
+
+<body id="page-top">
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand js-scroll-trigger" href="#page-top">Home</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#guide">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#example">Example</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger" href="#generate">Generate</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Header -->
+<header class="masthead">
+    <div class="container d-flex h-100 align-items-center">
+        <div class="mx-auto text-center">
+            <h1 class="mx-auto my-0 text-uppercase">Coder's Cafe</h1>
+            <h2 class="text-white-50 mx-auto mt-2 mb-5">Generate Your HTML Here, Using Hand Drawn Sketch. . </h2>
+            <a href="#guide" class="btn btn-primary js-scroll-trigger">Get Started</a>
+        </div>
+    </div>
+</header>
+
+<!--About Section-->
+<section id="guide" class="about-section text-center">
+    <div class="container" style="padding-bottom: 5rem">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <img src="data/lib/img/elements.PNG" class="img-fluid col-md-12">
+            </div>
+        </div>
+        <a href="#example" class="btn btn-primary js-scroll-trigger" style="float: right">Next</a>
+    </div>
+</section>
+
+<!--example Section-->
+<section id="example" class="about-section text-center">
+    <div class="container" style="padding-bottom: 5rem">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <img src="data/lib/img/sample.jpg" class="img-fluid col-md-12">
+            </div>
+        </div>
+        <a href="#guide_and_rules" class="btn btn-primary js-scroll-trigger" style="float: right">Next</a>
+    </div>
+</section>
+
+<section id="guide_and_rules" class="about-section text-center">
+    <div class="container" style="padding-bottom: 5rem">
+        <div class="row">
+            <div class="col-lg-8 mx-auto" style="color: white;">
+                <h1>Drawing shape and writing text</h1>
+                <ul style="text-align: left; font-size: 18px">
+                    <li>When drawing shape cannot be intersect and all corners must be joining each other’s.</li>
+                    <li>Cannot be draw shape haven't any gap between the other shape.</li>
+                    <li>Writing text are cannot be connect any line of the shape.</li>
+                    <li>When writing a text write a clearly and do not write unclearly or cursive letter.</li>
+                    <li>When writing text using high thickness red color pen. </li>
+                    <li>There should be a label for each and every input field, radio button and option button.</li> 
+                    <li>Every radio button group check box group and drop downs should have a main label.</li>
+                    <li>The images that drawn for web pages in a site, should save with its display name of the hyperlink.</li>
+                </ul>
+            </div>
+        </div>
+        <a href="#generate" class="btn btn-primary js-scroll-trigger" style="float: right">Next</a>
+    </div>
+</section>
+
+
+
+
+
+
+<section id="generate">
+    <header class="masthead">
+        <div id="dynamic-content" class="container d-flex h-100 align-items-center download-link">
+
+
+            <div class="mx-auto text-center col-md-8">
+                <h2 style="color: red; "> Please Selece Image From ...project_root/input/ </h2>
+                <div class="col-md-6" style="float: left">
+                    <div id="input-image-upload" class="col-md-12 ">
+                        <!--append browse input here-->
+                    </div>
+                </div>
+            </div>
+            <input class="page-count btn btn-light" type="number" max="5" placeholder="Enter Number Of pages"
+                   style="margin-right: 5px">
+            <button class="upoad-file btn btn-primary">Generate</button>
+        </div>
+    </header>
+</section>
+
+<script>
+    var file;
+    var intervalId = null;
+    $(document).ready(function () {
+
+        $(".page-count").change(function () {
+            $("#input-image-upload").empty();
+            file = [];
+            var page_count = $(".page-count").val();
+
+            if (page_count > 5) {
+                alert("Max Value Should be Lower Than 5");
+            } else {
+
+                var i;
+                for (i = 0; i < page_count; i++) {
+                    $("#input-image-upload").append('<br><input id="image-file" class="btn btn-primary" type="file"\n' +
+                        '                       accept=".jpg, .jpeg, .JPG, .JPEG, .png, .PNG"/><br>');
+                }
+
+                $("input#image-file").change(function () {
+                    file.push([$(this)[0].files.item(0).name]);
+                    // alert(file);
+                });
+            }
+        });
+
+        $(".upoad-file").click(function () {
+            if (file !== undefined) {
+
+                $.ajax({
+                    url: 'http://localhost:8081/exec?file=' + file,
+                    type: 'GET'
+                });
+
+                // html content with loading animation
+                var htmlContent = '<img style="margin-left:500px" src="/data/lib/img/loading-animation.gif" />';
+                $('#dynamic-content').html(htmlContent);
+
+                // start periodical polling
+                intervalId = setInterval(checkForDownloadLink, 5000);
+
+            }
+            else {
+                alert("No File Chosen . . . ! ")
+            }
+        });
+    });
+
+
+    function checkForDownloadLink() {
+        console.log('server polling');
+
+        $.get('output/generated_download_link.json', function (data, textStatus) {
+            // if file exists
+            if (textStatus == "success") {
+                // stop polling
+                clearInterval(intervalId);
+                $(".download-link").empty();
+                // get link
+                var link = data['link'];
+                console.log('download link: ' + link);
+
+                $(".download-link").append('<a class="btn btn-danger" style="margin-left:400px" href="'+link+'" >Download Your Website Here<a/>');
+            }
+        });
+    }
+
+    function refresh() {
+        // send request to server to remove old output file
+        $.ajax({
+            url: 'http://localhost:8081/remove?file=generated_download_link.json',
+            type: 'GET',
+            success: function (data) {
+                window.location.reload();
+            },
+            error: function (error) {
+                window.location.reload();
+            }
+        });
+    }
+
+
+</script>
+
+<script src="data/lib/vendor/jquery/jquery.min.js"></script>
+<script src="data/lib/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="data/lib/vendor/jquery-easing/jquery.easing.min.js"></script>
+<script src="data/lib/js/grayscale.min.js"></script>
+
+</body>
+
+</html>
