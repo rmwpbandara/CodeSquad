@@ -12,9 +12,9 @@ def run(file):
         page_name = img
 
         img = cv2.imread("input/" + img)  # get file name from browser
-        height1, width1, channels1 = img.shape
-        if height1 > 700 or width1 > 1200:
-            percentage = (760 / height1)
+        page_height, page_width, channels1 = img.shape
+        if page_height > 700 or page_width > 1200:
+            percentage = (760 / page_height)
             img = cv2.resize(img, (0, 0), fx=percentage, fy=percentage)
         img_copy = img.copy()
         height, width, channels = img.shape
@@ -48,10 +48,12 @@ def run(file):
                     continue
                 else:
 
-                    page_data.append([[element_name], [x, y], [x + w, y], [x + w, y + h], [x, y + h]])
-                    SHAPE_RECOGNIZE.drawShapeRecognizeOutput(element_name, img_copy, cnt, img, percentage)  #
+                    page_data.append([[element_name,"HPL-1"], [x, y, w, h]])
+                    # page_data.append([[element_name], [x, y], [x + w, y], [x + w, y + h], [x, y + h]])
+                    # SHAPE_RECOGNIZE.drawShapeRecognizeOutput(element_name, img_copy, cnt, img, percentage)  #
 
-        all_page_data.append([[width, height], [page_name], [page_data]])  # append all pages data to all page array
+        all_page_data.append([[page_name,page_width], page_data])  # append all pages data to all page array
+        # all_page_data.append([[width, height], [page_name], [page_data]])  # append all pages data to all page array
 
     print("--------------------------------------")
     print("Success Shape Recognize and Text Recognize")
