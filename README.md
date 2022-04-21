@@ -55,11 +55,11 @@ install node => <a> "https://nodejs.org/dist/v10.15.3/node-v10.15.3-x64.msi"</a>
 	<li>Click the generate button.</li>
 	<li>Wait some time to the process, you can download zip file from browser and unzip the folder and show the html page.</li>
 </ul>
-
-
-Segmentation Module
-pip install -r requirements.txt
-pip install onnx
-python export.py --weights runs/train/exp2/weights/last.pt --include torchscript onnx
-pip install opencv-contrib-python
-run segementation.py file
+<ul>
+<h3>Segmentation Module<h3>
+<li>pip install -r requirements.txt</li>
+<li>pip install onnx</li>
+<li>python export.py --weights runs/train/exp2/weights/last.pt --include torchscript onnx</li>
+<li>pip install opencv-contrib-python</li>
+<li>run segementation.py file</li>
+</ul>
