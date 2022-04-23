@@ -37,8 +37,8 @@ def run(file):
             w = w + 4
             h = h + 4
             crop_img = img[y:y + h, x:x + w]  # crop image using bounding rectangle
-            cv2.imshow('crop', crop_img)
-            cv2.waitKey(0)
+            # cv2.imshow('crop', crop_img)
+            # cv2.waitKey(0)
 
             width_crop, height_crop, channels_crop = crop_img.shape  # find width and height copped image
 
@@ -50,7 +50,7 @@ def run(file):
                 if element_name == 0:
                     continue
                 else:
-
+                    print(element_name)
                     page_data.append([[element_name,"HPL-1"], [x, y, w, h]])
                     # page_data.append([[element_name], [x, y], [x + w, y], [x + w, y + h], [x, y + h]])
                     # SHAPE_RECOGNIZE.drawShapeRecognizeOutput(element_name, img_copy, cnt, img, percentage)  #
@@ -72,7 +72,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         file = sys.argv[1]
     else:
-        file = "home.jpg,about.jpg,contact.jpg,login.jpg,signup.jpg"
+        file = "Profile1.jpg"
     print('[INFO] start processing file: ' + file)
 
     # execute main process
