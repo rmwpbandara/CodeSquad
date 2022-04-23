@@ -12,11 +12,11 @@ class Elements:
         self.DD = []
         self.HPL = []
         self.IMG = []
-        self.LBL = []
+        self.TEXT = []
         self.PRGF = []
         self.PW = []
         self.RB = []
-        self.TXT = []
+        self.LBL = []
         self.CNN = []
 
     def addBTN(self, value):
@@ -34,8 +34,8 @@ class Elements:
     def addIMG(self, value):
         self.IMG.append(value)
 
-    def addLBL(self, value):
-        self.LBL.append(value)
+    def addTEXT(self, value):
+        self.TEXT.append(value)
 
     def addPRGF(self, value):
         self.PRGF.append(value)
@@ -46,8 +46,8 @@ class Elements:
     def addRB(self, value):
         self.RB.append(value)
 
-    def addTXT(self, value):
-        self.TXT.append(value)
+    def addLBL(self, value):
+        self.LBL.append(value)
 
     def addCNN(self, description, name_of_data, data):
         self.CNN.append([description, name_of_data, data])
@@ -101,7 +101,7 @@ class Features:
             # print("count == 1")
             self.E.addBTN(5)
             self.E.addRB(5)
-            self.E.addTXT(5)
+            self.E.addLBL(5)
             self.innerCnt1Shape()
             self.supperInnerCnt1Shape()
             self.errorSolvedCnt1()
@@ -114,7 +114,7 @@ class Features:
             # print("count == 2")
             self.E.addDD(5)
             self.E.addHPL(5)
-            self.E.addLBL(5)
+            self.E.addTEXT(5)
             self.E.addPRGF(5)
             self.innerCnt2Shape()
             self.contourCount2Special()
@@ -154,11 +154,11 @@ class Features:
             self.E.addDD(5)
             self.E.addHPL(5)
             self.E.addIMG(5)
-            self.E.addLBL(5)
+            self.E.addTEXT(5)
             self.E.addPRGF(5)
             self.E.addPW(5)
             self.E.addRB(5)
-            self.E.addTXT(5)
+            self.E.addLBL(5)
             return self.E
 
         elif shape == "square":
@@ -179,7 +179,7 @@ class Features:
                 # print("innerCnt1Shape == rectangle")
                 self.E.addBTN(10)
                 self.E.addRB(10)
-                self.E.addTXT(10)
+                self.E.addLBL(10)
             elif child_shape == "square":
                 # print("innerCnt1Shape == square")
 
@@ -196,12 +196,12 @@ class Features:
                 # print("innerCnt2Shape == rectangle")
                 self.E.addDD(2.5)
                 self.E.addHPL(2.5)
-                self.E.addLBL(2.5)
+                self.E.addTEXT(2.5)
                 self.E.addPRGF(2.5)
             elif child_shape == "square":
                 # print("innerCnt2Shape == square")
                 self.E.addDD(2.5)
-                self.E.addLBL(2.5)
+                self.E.addTEXT(2.5)
             else:
                 # print("innerCnt2Shape == else")
                 self.E.addHPL(2.5)
@@ -245,7 +245,7 @@ class Features:
                     self.E.addRB(80)
                     return self.E
             elif super_inner_count == 0:
-                self.E.addTXT(80)
+                self.E.addLBL(80)
                 return self.E
             else:
                 return self.E
@@ -265,7 +265,7 @@ class Features:
             self.E.addHPL(5)
             self.dropdownSpecial(right_cnt_index)
         else:
-            self.E.addLBL(5)
+            self.E.addTEXT(5)
             self.E.addPRGF(5)
             self.labelSpecial(left_cnt_index)
 
@@ -294,7 +294,7 @@ class Features:
     def labelSpecial(self, left_cnt_index):
         grand_child_count, grand_child_index = API.countInnerCtn(self.TC, self.TH, self.child_ctn_idxs[left_cnt_index])
         if grand_child_count == 0:
-            self.E.addLBL(74)
+            self.E.addTEXT(74)
             return self.E
         else:
             return self.E

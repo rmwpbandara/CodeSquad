@@ -131,7 +131,7 @@ def mappingOnePage(all_elements):
         if (sorted_list[n][0][1] == 'RB'):
             for m in range(n + 1, len(sorted_list)):
                 if (len(sorted_list[m][0]) >= 2):
-                    if (sorted_list[m][0][1] == 'LBL'):
+                    if (sorted_list[m][0][1] == 'TEXT'):
                         sorted_list.insert(n + 1, sorted_list.pop(m))
                         sorted_list[m][0].append('classified')
                         # sorted_list[n+1][0].append('classified')
@@ -144,7 +144,7 @@ def mappingOnePage(all_elements):
         if (sorted_list[n][0][1] == 'CB'):
             for m in range(n + 1, len(sorted_list)):
                 if (len(sorted_list[m][0]) >= 2):
-                    if (sorted_list[m][0][1] == 'LBL'):
+                    if (sorted_list[m][0][1] == 'TEXT'):
                         sorted_list.insert(n + 1, sorted_list.pop(m))
                         sorted_list[m][0].append('classified')
                         # sorted_list[n+1][0].append('classified')
@@ -170,7 +170,7 @@ def mappingOnePage(all_elements):
 
             for m in range(0, len(sorted_list)):
                 if ((sorted_list[m][1][0] > left_point) and (sorted_list[m][1][4] < right_point) and (
-                        sorted_list[m][0][1] == 'LBL') and (sorted_list[m][1][5] < sorted_list[n][1][1])):
+                        sorted_list[m][0][1] == 'TEXT') and (sorted_list[m][1][5] < sorted_list[n][1][1])):
                     founded_labels.append(m)
                     founded_labels_distance.append(sorted_list[n][1][1] - sorted_list[m][1][5])
             # print("founded_labels:",founded_labels)
@@ -189,7 +189,7 @@ def mappingOnePage(all_elements):
 
             for m in range(0, len(sorted_list)):
                 if ((sorted_list[m][1][1] > top_point) and (sorted_list[m][1][5] < bottom_point) and
-                        (sorted_list[m][0][1] == 'LBL') and  (sorted_list[m][1][0] < sorted_list[n][1][0]) and
+                        (sorted_list[m][0][1] == 'TEXT') and  (sorted_list[m][1][0] < sorted_list[n][1][0]) and
                         (len(sorted_list[m][0]) == 2)):
                     founded_labels_2.append(m)
                     founded_labels_distance_2.append(sorted_list[n][1][0] - sorted_list[m][1][4])
@@ -218,9 +218,9 @@ def mappingOnePage(all_elements):
 
     for n in range(0, len(sorted_list)):
         if (len(sorted_list[n][0]) == 2):
-            if ((sorted_list[n][0][1] == 'TXT') or (sorted_list[n][0][1] == 'PW')):
+            if ((sorted_list[n][0][1] == 'LBL') or (sorted_list[n][0][1] == 'PW')):
                 input_count = input_count + 1
-            if ((sorted_list[n][0][1] == 'LBL') and (len(sorted_list[n][0]) == 2) and (
+            if ((sorted_list[n][0][1] == 'TEXT') and (len(sorted_list[n][0]) == 2) and (
                     (sorted_list[n - 1][0][1] != 'RB') and (sorted_list[n + 1][0][1] != 'RB') and
                     (sorted_list[n + 1][0][1] != 'DD') and (sorted_list[n - 1][0][1] != 'CB') and
                     (sorted_list[n + 1][0][1] != 'CB'))):
@@ -248,7 +248,7 @@ def mappingOnePage(all_elements):
                             break
                         if (sorted_list[m][0][1] == 'DD'):
                             break
-                        if ((sorted_list[m][0][1] == 'TXT') or (sorted_list[m][0][1] == 'PW')):
+                        if ((sorted_list[m][0][1] == 'LBL') or (sorted_list[m][0][1] == 'PW')):
                             sorted_list.insert(n + 1, sorted_list.pop(m))
                             sorted_list[n][0].append('classified')
                             break
@@ -257,13 +257,13 @@ def mappingOnePage(all_elements):
 
     for n in range(0, len(sorted_list)):
         if (len(sorted_list[n][0]) == 2):
-            if (sorted_list[n][0][1] == 'LBL'):
+            if (sorted_list[n][0][1] == 'TEXT'):
                 for m in range(n + 1, len(sorted_list)):
                     if (sorted_list[m][0][1] == 'RB'):
                         break
                     if (sorted_list[m][0][1] == 'CB'):
                         break
-                    if ((sorted_list[m][0][1] == 'TXT') or (sorted_list[m][0][1] == 'PW')):
+                    if ((sorted_list[m][0][1] == 'LBL') or (sorted_list[m][0][1] == 'PW')):
                         break
                     if (sorted_list[m][0][1] == 'DD'):
                         sorted_list.insert(n + 1, sorted_list.pop(m))
@@ -282,24 +282,24 @@ def mappingOnePage(all_elements):
             group_id = group_id + 1
 
         # checkbox and label or paragraph
-        if (sorted_list[n][0][1] == 'CB') and ((sorted_list[n + 1][0][1] == 'LBL') or (sorted_list[n + 1][0][1] == 'PRGF')):
+        if (sorted_list[n][0][1] == 'CB') and ((sorted_list[n + 1][0][1] == 'TEXT') or (sorted_list[n + 1][0][1] == 'PRGF')):
             sorted_list[n].append(group_id)
             group_id = group_id + 1
 
         # label and text, password, paragraph
-        if (sorted_list[n][0][1] == 'LBL') and (
-                (sorted_list[n + 1][0][1] == 'TXT') or (sorted_list[n + 1][0][1] == 'PRGF') or (
+        if (sorted_list[n][0][1] == 'TEXT') and (
+                (sorted_list[n + 1][0][1] == 'LBL') or (sorted_list[n + 1][0][1] == 'PRGF') or (
                 sorted_list[n + 1][0][1] == 'PW')):
             sorted_list[n].append(group_id)
             for m in range(n + 1, len(sorted_list)):
-                if ((sorted_list[m][0][1] == 'TXT') or (sorted_list[m][0][1] == 'PW') or (sorted_list[m][0][1] == 'PRGF')):
+                if ((sorted_list[m][0][1] == 'LBL') or (sorted_list[m][0][1] == 'PW') or (sorted_list[m][0][1] == 'PRGF')):
                     sorted_list[m].append(group_id)
                     group_id = group_id + 1
                 else:
                     break
 
         # label and dropdown
-        if ((sorted_list[n][0][1] == 'LBL') and (sorted_list[n + 1][0][1] == 'DD')):
+        if ((sorted_list[n][0][1] == 'TEXT') and (sorted_list[n + 1][0][1] == 'DD')):
             sorted_list[n].append(group_id)
             for m in range(n + 1, len(sorted_list)):
                 if (sorted_list[m][0][1] == 'DD'):
@@ -309,17 +309,17 @@ def mappingOnePage(all_elements):
                     break
 
         # label and radio button
-        if ((sorted_list[n][0][1] == 'LBL') and (len(sorted_list[n][0]) == 2) and (sorted_list[n + 1][0][1] == 'RB')):
+        if ((sorted_list[n][0][1] == 'TEXT') and (len(sorted_list[n][0]) == 2) and (sorted_list[n + 1][0][1] == 'RB')):
             sorted_list[n].append(group_id)
             for m in range(n + 1, len(sorted_list)):
 
-                if ((sorted_list[m][0][1] == 'TXT') or (sorted_list[m][0][1] == 'PW') or (
+                if ((sorted_list[m][0][1] == 'LBL') or (sorted_list[m][0][1] == 'PW') or (
                         sorted_list[m][0][1] == 'CB') or (sorted_list[m][0][1] == 'DD')):
                     break
 
                 if (sorted_list[m][0][1] == 'RB'):
                     for i in range(m, len(sorted_list), 2):
-                        if ((sorted_list[i][0][1] == 'RB') and (sorted_list[i + 1][0][1] == 'LBL') and (
+                        if ((sorted_list[i][0][1] == 'RB') and (sorted_list[i + 1][0][1] == 'TEXT') and (
                                 len(sorted_list[i + 1][0]) == 3)):
                             sorted_list[i].append(group_id)
                             continue
@@ -439,7 +439,7 @@ for page_number in range(0, len(shapes)):
 
     for n in range(0, len(sorted_list)):
 
-        if ((sorted_list[n][0][1] == 'PRGF') and (sorted_list[n - 1][0][1] != 'LBL')):
+        if ((sorted_list[n][0][1] == 'PRGF') and (sorted_list[n - 1][0][1] != 'TEXT')):
             word_list = sorted_list[n][0][0].split()
             word_count = len(word_list)
             letter_count = 0
@@ -549,7 +549,7 @@ for page_number in range(0, len(shapes)):
             }
             nb_of_paragraphs = nb_of_paragraphs + 1
 
-        if (sorted_list[n][0][1] == 'LBL'):
+        if (sorted_list[n][0][1] == 'TEXT'):
             data[sorted_list[n][0][1] + '-' + str(nb_of_labels)] = {
                 'type': 'label',
                 # 'groupId': str(sorted_list[n][2]),
@@ -562,7 +562,7 @@ for page_number in range(0, len(shapes)):
             }
             nb_of_labels = nb_of_labels + 1
 
-        if (sorted_list[n][0][1] == 'TXT'):
+        if (sorted_list[n][0][1] == 'LBL'):
             data[sorted_list[n][0][1] + '-' + str(nb_of_texts)] = {
                 'type': 'text',
                 'groupId': str(sorted_list[n][2]),
@@ -591,7 +591,7 @@ for page_number in range(0, len(shapes)):
         if (sorted_list[n][0][1] == 'RB'):
 
             for nn in range(n - 1, n - 3, -1):
-                if (sorted_list[nn][0][1] == 'LBL'):
+                if (sorted_list[nn][0][1] == 'TEXT'):
                     r_m_label = sorted_list[nn][0][0]
                     # print("r_m_label",r_m_label)
                     break
@@ -625,7 +625,7 @@ for page_number in range(0, len(shapes)):
         if (sorted_list[n][0][1] == 'DD'):
 
             for nn in range(n - 1, n - 3, -1):
-                if (sorted_list[nn][0][1] == 'LBL'):
+                if (sorted_list[nn][0][1] == 'TEXT'):
                     d_m_label = sorted_list[nn][0][0]
                     # print("d_m_label",d_m_label)
                     break

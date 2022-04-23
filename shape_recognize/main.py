@@ -40,8 +40,8 @@ def shapeRecognizeMain(image):
 
     # create total data array to analysing data
     total = [["BTN", np.sum(E.BTN)], ["CB", np.sum(E.CB)], ["DD", np.sum(E.DD)], ["HPL", np.sum(E.HPL)],
-             ["IMG", np.sum(E.IMG)], ["LBL", np.sum(E.LBL)], ["PRGF", np.sum(E.PRGF)], ["PW", np.sum(E.PW)],
-             ["RB", np.sum(E.RB)], ["TXT", np.sum(E.TXT)]]
+             ["IMG", np.sum(E.IMG)], ["TEXT", np.sum(E.TEXT)], ["PRGF", np.sum(E.PRGF)], ["PW", np.sum(E.PW)],
+             ["RB", np.sum(E.RB)], ["LBL", np.sum(E.LBL)]]
 
     # total = sorted(total, key=lambda total_entry: total_entry[1])
     # print(total)
