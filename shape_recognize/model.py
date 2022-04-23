@@ -105,6 +105,7 @@ class Features:
             self.innerCnt1Shape()
             self.supperInnerCnt1Shape()
             self.errorSolvedCnt1()
+            self.imageSpecial()
 
             # cv2.drawContours(img, contoursRT, -1, (255, 0, 0), 1)
             # cv2.imshow("image", img)
@@ -129,7 +130,7 @@ class Features:
             # print("count == 4")
             self.E.addCB(5)
             self.E.addPW(5)
-            self.imageSpecial()
+            # self.imageSpecial()
             self.innerCnt4Shape()
             self.checkBoxSpecial()
             self.passwordSpecial()
@@ -239,20 +240,22 @@ class Features:
         for cntIdx in self.child_ctn_idxs:
             super_inner_count, super_inner_ctn_idxs = API.countInnerCtn(self.TC, self.TH, cntIdx)
 
-            print(super_inner_count)
+            # print(super_inner_count)
 
             if super_inner_count == 1:
                 child_shape, points = API.shape(self.TC[super_inner_ctn_idxs[0]])
                 if child_shape == "rectangle" or child_shape == "square":
 
-                    print(child_shape)
+                    # print(child_shape)
                     self.E.addBTN(80)
                     return self.E
                 else:
                     self.E.addRB(80)
                     return self.E
             elif super_inner_count > 1:
-                self.E.addLBL(80)
+                self.E.addLBL(70)
+                self.imageSpecial()
+
                 return self.E
             else:
                 return self.E
@@ -325,11 +328,26 @@ class Features:
     def imageSpecial(self):
         for cntIdx in self.child_ctn_idxs:
             super_child_count, super_child_idxs = API.countInnerCtn(self.TC, self.TH, cntIdx)
-            if super_child_count == 1:
 
-                child_shape, points = API.shape(self.TC[super_child_idxs[0]])
-                if child_shape == "other":
-                    self.E.addIMG(70)
+            print(super_child_count)
+            if super_child_count == 2:
+
+                child_shape1, points1 = API.shape(self.TC[super_child_idxs[0]])
+                child_shape2, points2 = API.shape(self.TC[super_child_idxs[1]])
+
+                # print(child_shape1)
+                # print(child_shape2)
+                if child_shape1 == "triangle":
+                    self.E.addIMG(30)
+                elif child_shape1 == "other":
+                    self.E.addIMG(15)
+                else:
+                    continue
+
+                if child_shape2 == "triangle":
+                    self.E.addIMG(30)
+                elif child_shape2 == "other":
+                    self.E.addIMG(15)
                 else:
                     continue
             else:
