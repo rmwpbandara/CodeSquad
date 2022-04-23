@@ -53,7 +53,7 @@ def run(file):
                 if element_name == 0:
                     continue
                 else:
-                    print(element_name)
+                    # print(element_name)
                     page_data.append([[element_name,"HPL-1"], [x, y, w, h]])
                     # page_data.append([[element_name], [x, y], [x + w, y], [x + w, y + h], [x, y + h]])
                     # SHAPE_RECOGNIZE.drawShapeRecognizeOutput(element_name, img_copy, cnt, img, percentage)  #

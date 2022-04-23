@@ -36,7 +36,7 @@ def shapeRecognizeMain(image):
     F = Features(E, EC, TC, TH)  # create features object and send data to feature extraction
     F.main()  # call features object main method
 
-    print(np.sum(E.BTN))
+    # print(np.sum(E.BTN))
 
     # create total data array to analysing data
     total = [["BTN", np.sum(E.BTN)], ["CB", np.sum(E.CB)], ["DD", np.sum(E.DD)], ["HPL", np.sum(E.HPL)],
@@ -56,7 +56,7 @@ def shapeRecognizeMain(image):
         return 0, "none"
     else:
 
-        print("Identified Shape => : ", API.realNameOfElement(ElementMax[0]), "-", int(ElementMax[1]), "%")
+        # print("Identified Shape => : ", API.realNameOfElement(ElementMax[0]), "-", int(ElementMax[1]), "%")
 
         return ElementMax[0], ElementMax[1]
 

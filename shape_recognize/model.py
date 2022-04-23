@@ -175,6 +175,9 @@ class Features:
     def innerCnt1Shape(self):
         for cntIdx in self.child_ctn_idxs:
             child_shape, points = API.shape(self.TC[cntIdx])
+
+            # print(child_shape)
+
             if child_shape == "rectangle":
                 # print("innerCnt1Shape == rectangle")
                 self.E.addBTN(10)
@@ -236,15 +239,19 @@ class Features:
         for cntIdx in self.child_ctn_idxs:
             super_inner_count, super_inner_ctn_idxs = API.countInnerCtn(self.TC, self.TH, cntIdx)
 
+            print(super_inner_count)
+
             if super_inner_count == 1:
                 child_shape, points = API.shape(self.TC[super_inner_ctn_idxs[0]])
                 if child_shape == "rectangle" or child_shape == "square":
+
+                    print(child_shape)
                     self.E.addBTN(80)
                     return self.E
                 else:
                     self.E.addRB(80)
                     return self.E
-            elif super_inner_count == 0:
+            elif super_inner_count > 1:
                 self.E.addLBL(80)
                 return self.E
             else:
