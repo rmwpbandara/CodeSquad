@@ -18,7 +18,6 @@ def elementPreProcessing(img):  # precessing cropped image to recognize shape
     cv2.imshow("test", blankImg)
     cv2.waitKey(0)
 
-
     return contoursRE, hierarchyRE, contoursRT, hierarchyRT
 
 
