@@ -13,7 +13,7 @@ def elementPreProcessing(img):  # precessing cropped image to recognize shape
                                                   cv2.CHAIN_APPROX_SIMPLE)  # find external contour
     _, contoursRT, hierarchyRT = cv2.findContours(closing, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)  # find tree contours
 
-    blankImg = np.zeros((600, 1200, 3), np.uint8)
+    blankImg = np.zeros((600, 600, 3), np.uint8)
     cv2.drawContours(blankImg, contoursRT, -1, (255, 255, 0), 1)
     cv2.imshow("test", blankImg)
     cv2.waitKey(0)
@@ -22,14 +22,21 @@ def elementPreProcessing(img):  # precessing cropped image to recognize shape
 
 
 def shapeRecognizeMain(image):
-    cv2.imshow("image_segment",image)
-    cv2.waitKey(0)
+    # cv2.imshow("image_segment",image)
+    # cv2.waitKey(0)
 
     EC, EH, TC, TH = elementPreProcessing(image)
+
+    # print(EC)
+    # print(EH)
+    # print(TC)
+    # print(TH)
 
     E = Elements()  # create elements object to store data of shape recognise process
     F = Features(E, EC, TC, TH)  # create features object and send data to feature extraction
     F.main()  # call features object main method
+
+    print(np.sum(E.BTN))
 
     # create total data array to analysing data
     total = [["BTN", np.sum(E.BTN)], ["CB", np.sum(E.CB)], ["DD", np.sum(E.DD)], ["HPL", np.sum(E.HPL)],
@@ -49,7 +56,7 @@ def shapeRecognizeMain(image):
         return 0, "none"
     else:
 
-        # print("Identified Shape => : ", API.realNameOfElement(ElementMax[0]), "-", int(ElementMax[1]), "%")
+        print("Identified Shape => : ", API.realNameOfElement(ElementMax[0]), "-", int(ElementMax[1]), "%")
 
         return ElementMax[0], ElementMax[1]
 

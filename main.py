@@ -45,6 +45,11 @@ def run(file):
             else:
                 element_name, percentage = SHAPE_RECOGNIZE.shapeRecognizeMain(crop_img.copy())  # call shape recognize main method
 
+                API.drawText(element_name,img,[x,y])
+                API.drawText(percentage,img,[x+35,y])
+                cv2.imshow("test", img)
+                cv2.waitKey(0)
+
                 if element_name == 0:
                     continue
                 else:
@@ -70,7 +75,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         file = sys.argv[1]
     else:
-        file = "Profile1.jpg"
+        file = "SignIn1.jpg"
     print('[INFO] start processing file: ' + file)
 
     # execute main process
