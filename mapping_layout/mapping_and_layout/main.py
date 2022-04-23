@@ -276,23 +276,23 @@ def mappingOnePage(all_elements):
 
     group_id = 1
     for n in range(0, len(sorted_list)):
-        if (sorted_list[n][0][1] == 'IMG') or (sorted_list[n][0][1] == 'HPL') or (sorted_list[n][0][1] == 'PRGF') or (
+        if (sorted_list[n][0][1] == 'IMG') or (sorted_list[n][0][1] == 'HPL') or (sorted_list[n][0][1] == 'HPLINK') or (
                 sorted_list[n][0][1] == 'BTN'):
             sorted_list[n].append(group_id)
             group_id = group_id + 1
 
         # checkbox and label or paragraph
-        if (sorted_list[n][0][1] == 'CB') and ((sorted_list[n + 1][0][1] == 'TEXT') or (sorted_list[n + 1][0][1] == 'PRGF')):
+        if (sorted_list[n][0][1] == 'CB') and ((sorted_list[n + 1][0][1] == 'TEXT') or (sorted_list[n + 1][0][1] == 'HPLINK')):
             sorted_list[n].append(group_id)
             group_id = group_id + 1
 
         # label and text, password, paragraph
         if (sorted_list[n][0][1] == 'TEXT') and (
-                (sorted_list[n + 1][0][1] == 'LBL') or (sorted_list[n + 1][0][1] == 'PRGF') or (
+                (sorted_list[n + 1][0][1] == 'LBL') or (sorted_list[n + 1][0][1] == 'HPLINK') or (
                 sorted_list[n + 1][0][1] == 'PW')):
             sorted_list[n].append(group_id)
             for m in range(n + 1, len(sorted_list)):
-                if ((sorted_list[m][0][1] == 'LBL') or (sorted_list[m][0][1] == 'PW') or (sorted_list[m][0][1] == 'PRGF')):
+                if ((sorted_list[m][0][1] == 'LBL') or (sorted_list[m][0][1] == 'PW') or (sorted_list[m][0][1] == 'HPLINK')):
                     sorted_list[m].append(group_id)
                     group_id = group_id + 1
                 else:
@@ -439,7 +439,7 @@ for page_number in range(0, len(shapes)):
 
     for n in range(0, len(sorted_list)):
 
-        if ((sorted_list[n][0][1] == 'PRGF') and (sorted_list[n - 1][0][1] != 'TEXT')):
+        if ((sorted_list[n][0][1] == 'HPLINK') and (sorted_list[n - 1][0][1] != 'TEXT')):
             word_list = sorted_list[n][0][0].split()
             word_count = len(word_list)
             letter_count = 0
@@ -536,7 +536,7 @@ for page_number in range(0, len(shapes)):
             }
             nb_of_images = nb_of_images + 1
 
-        if (sorted_list[n][0][1] == 'PRGF'):
+        if (sorted_list[n][0][1] == 'HPLINK'):
             data[sorted_list[n][0][1] + '-' + str(nb_of_paragraphs)] = {
                 'type': str(sorted_list[n][0][-2]),
                 'groupId': str(sorted_list[n][2]),

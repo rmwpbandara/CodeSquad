@@ -75,7 +75,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         file = sys.argv[1]
     else:
-        file = "SignIn1.jpg"
+        file = "home_1.jpg"
     print('[INFO] start processing file: ' + file)
 
     # execute main process

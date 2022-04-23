@@ -290,19 +290,19 @@ def mappingMain(data):
             if (sorted_list[n][0][1] == 'HPL'):
                 sorted_list[n].append(g_id)
                 g_id = g_id + 1
-            if (sorted_list[n][0][1] == 'PRGF'):
+            if (sorted_list[n][0][1] == 'HPLINK'):
                 sorted_list[n].append(g_id)
                 g_id = g_id + 1
             if (sorted_list[n][0][1] == 'BTN'):
                 sorted_list[n].append(g_id)
                 g_id = g_id + 1
             if ((sorted_list[n][0][1] == 'CB') and (
-                    (sorted_list[n + 1][0][1] == 'TEXT') or (sorted_list[n + 1][0][1] == 'PRGF'))):
+                    (sorted_list[n + 1][0][1] == 'TEXT') or (sorted_list[n + 1][0][1] == 'HPLINK'))):
                 sorted_list[n].append(g_id)
                 g_id = g_id + 1
             if ((sorted_list[n][0][1] == 'TEXT') and (
                     (sorted_list[n + 1][0][1] == 'LBL') or (sorted_list[n + 1][0][1] == 'PW') or (
-                    sorted_list[n + 1][0][1] == 'PRGF'))):
+                    sorted_list[n + 1][0][1] == 'HPLINK'))):
                 sorted_list[n].append(g_id)
                 for m in range(n + 1, len(sorted_list)):
                     if (sorted_list[m][0][1] == 'RB'):
@@ -312,7 +312,7 @@ def mappingMain(data):
                     if (sorted_list[m][0][1] == 'CB'):
                         break
                     if ((sorted_list[m][0][1] == 'LBL') or (sorted_list[m][0][1] == 'PW') or (
-                            sorted_list[m][0][1] == 'PRGF')):
+                            sorted_list[m][0][1] == 'HPLINK')):
                         sorted_list[m].append(g_id)
                         g_id = g_id + 1
                         continue
@@ -515,7 +515,7 @@ def mappingMain(data):
 
         for n in range(0, len(sorted_list)):
 
-            if ((sorted_list[n][0][1] == 'PRGF') and (sorted_list[n-1][0][1] != 'TEXT')):
+            if ((sorted_list[n][0][1] == 'HPLINK') and (sorted_list[n-1][0][1] != 'TEXT')):
                 word_list = sorted_list[n][0][0].split()
                 word_count =0
                 letter_count =0
@@ -628,7 +628,7 @@ def mappingMain(data):
                 }
                 nb_of_images = nb_of_images + 1
 
-            if (sorted_list[n][0][1] == 'PRGF'):
+            if (sorted_list[n][0][1] == 'HPLINK'):
 
                 data[sorted_list[n][0][1] + '-' + str(nb_of_paragraphs)] = {
                     'type': str(sorted_list[n][0][-2]),
