@@ -2,21 +2,9 @@ import json
 import numpy as np
 
 
-class NumpyEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, (np.int_, np.intc, np.intp, np.int8,
-                            np.int16, np.int32, np.int64, np.uint8,
-                            np.uint16, np.uint32, np.uint64)):
-            return int(obj)
-        elif isinstance(obj, (np.float_, np.float16, np.float32,
-                              np.float64)):
-            return float(obj)
-        elif isinstance(obj, (np.ndarray,)):
-            return obj.tolist()
-        return json.JSONEncoder.default(self, obj)
 
 
-def object_sort(page_no, json_data_for_page, top_values, left_values):
+def sort(page_no, json_data_for_page, top_values, left_values):
     sort_by_top = []
     for top in top_values:
         top_val = []
@@ -50,7 +38,7 @@ def object_sort(page_no, json_data_for_page, top_values, left_values):
     return sort_by_top
 
 
-def re_format(sorted_array):
+def add_div(sorted_array):
     index = 1
     arr = {}
 
@@ -65,7 +53,7 @@ def re_format(sorted_array):
 
 
 # Adding margin top values
-def margin_top_values(val):
+def top_margin(val):
     margin_top = 0
     if (val['type'] == "password" or val['type'] == "textarea" or val['type'] == "label" or val['type'] == "text" or
             val['type'] == "input"):
@@ -80,7 +68,7 @@ def margin_top_values(val):
 
 
 # Set Margin for elements
-def margin_adder(sorted_array):
+def add_margin(sorted_array):
     margin_top = 0
 
     for div in sorted_array:
@@ -108,14 +96,14 @@ def margin_adder(sorted_array):
                     if (margin_left < 0):
                         margin_left = 0
                     # margin_top = top - previous_obj[1] - previous_obj[3]
-                    margin_top = margin_top_values(val)
+                    margin_top = top_margin(val)
 
                 else:
                     margin_left = left
                     if (margin_left < 0):
                         margin_left = 0
                     # margin_top = 1
-                    margin_top = margin_top_values(val)
+                    margin_top = top_margin(val)
 
                 previous_obj = [left, top, width, height]
 
@@ -145,66 +133,103 @@ def margin_adder(sorted_array):
     return sorted_array
 
 
-# This function is used to find the matching arrays.
-# The output will be like [5,8]
-# That mean the html tag type in array 5 and 8
-def match_with_elm(object):
-    keys = object.keys()
-    key = ""
-    match = []
-    for k in keys:
-        key = k
-    x = object.get(key)["type"]
-    html_arr_1 = ['html', 'head', 'title', 'body', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']
-    html_arr_2 = ['b', 'i', 'sub', 'u', 'strong', "center"]
-    html_arr_3 = ['form', 'textarea', 'textbox', 'select', 'label', 'input', 'button', "option", 'radio', 'checkbox',
-                  'dropdown', 'img'
-                              'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'submit', 'reset']
-    html_arr_4 = ['frame', 'frameSet']
-    html_arr_5 = ['li', 'a', 'p', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'img']
-    html_arr_6 = ['br', 'hr']
-    html_arr_7 = ['img', 'area', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p']
-    html_arr_8 = ['a', 'nav', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'img']
-    html_arr_9 = ['ul', 'li', 'td', 'ol', 'dl', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'img']
-    html_arr_10 = ['table', 'caption', 'tr', 'th', 'td', 'thead', 'tea staff', 'tbody', 'col', 'captions', 'tfooter',
-                   'h1', 'h2',
-                   'h3', 'h4', 'h5', 'h6', 'p', 'img']
-    html_arr_11 = ['style', 'span', 'footer', 'header', 'div', 'section', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p',
-                   'img']
-    if x in html_arr_1:
-        match.append(1)
 
-    if x in html_arr_2:
-        match.append(2)
+# setup form when receive form elements -- form starting tag
+def formSetUp(tag):
+    if (tag == "input") or (tag == "radio") or (tag == "checkbox") or (tag == "reset") or (tag == "submit") or (
+            tag == "textarea") or (tag == "text") or (tag == "password"):
+        return "<div>\n<form class=\"form-inline\">"
+    else:
+        return ""
 
-    if x in html_arr_3:
-        match.append(3)
 
-    if x in html_arr_4:
-        match.append(4)
+# form ending tag
+def formSetDown(tag):
+    if (tag == "input") or (tag == "radio") or (tag == "checkbox") or (tag == "reset") or (tag == "submit") or (
+            tag == "textarea") or (tag == "text") or (tag == "password"):
+        return "</form>\n</div>"
+    else:
+        return ""
 
-    if x in html_arr_5:
-        match.append(5)
 
-    if x in html_arr_6:
-        match.append(6)
+# if input type=password set tag type=input // type=dropdown set tag type=select
+def input_password(tag):
+    if (tag == "password") or (tag == "radio") or (tag == "checkbox") or (tag == "text"):
+        return "input"
+    elif (tag == "submit") or (tag == "reset"):
+        return "button"
+    elif (tag == "dropdown"):
+        return "select"
+    else:
+        return tag
 
-    if x in html_arr_7:
-        match.append(7)
 
-    if x in html_arr_8:
-        match.append(8)
 
-    if x in html_arr_9:
-        match.append(9)
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, (np.int_, np.intc, np.intp, np.int8,
+                            np.int16, np.int32, np.int64, np.uint8,
+                            np.uint16, np.uint32, np.uint64)):
+            return int(obj)
+        elif isinstance(obj, (np.float_, np.float16, np.float32,
+                              np.float64)):
+            return float(obj)
+        elif isinstance(obj, (np.ndarray,)):
+            return obj.tolist()
+        return json.JSONEncoder.default(self, obj)
 
-    if x in html_arr_10:
-        match.append(10)
 
-    if x in html_arr_11:
-        match.append(11)
+# body Styles
+def BodyStyles():
+    bStyles = 'style=\"margin:20px;background-color: #e6ffff;background-image: url(../bg-image.jpg);background-size: cover\"'
+    return bStyles
 
-    return match
+
+# CSS, Script
+def CSS_Scripts():
+    links = '<title>Sample Web Page</title>\n<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">\n<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>\n<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>\n<link rel="stylesheet" href="Styles/Styles.css">'
+    return links
+
+
+# if tag is "label" - then enter <br> tag
+# def br_tag(tag):
+#     if (tag == "button") or (tag == "textarea") or (tag == "submit"):
+#         br = "<br><br>"
+#         return br
+#     elif (tag == "radio") or (tag == "checkbox"):
+#         return "<br>"
+#     else:
+#         return ""
+
+
+# add attributes to tags(class)
+def addClass(tag):
+    if (tag == "submit"):
+        return "class=\"btn btn-success text-capitalize\""
+    elif (tag == "reset"):
+        return "class=\"btn btn-danger text-capitalize\""
+    if (tag == "button"):
+        return "class=\"btn btn-secondary text-capitalize\""
+    elif (tag == "a"):
+        return "class=\"nav-link text-capitalize\""
+    elif (tag == "dropdown"):
+        return "class=\"btn btn-info dropdown-toggle form-control text-capitalize\""
+    elif (tag == "img"):
+        return "class=\"img-fluid\" src=\"../test.jpg\""
+    elif (tag == "p"):
+        return "class =\"text-justify text-dark\""
+    elif (tag == "text") or (tag == "password") or (tag == "textarea"):
+        return "class =\"form-control\""
+    elif (tag == "label"):
+        return "class =\"form-check-label text-capitalize\""
+    elif (tag == "checkbox"):
+        return "class =\"form-check-input text-capitalize\""
+    elif (tag == "radio"):
+        return "class =\"form-check-input text-capitalize\""
+    elif (tag == "h1" or tag == "h2" or tag == "h3" or tag == "h4" or tag == "h5" or tag == "h6"):
+        return "class =\"text-dark\""
+    else:
+        return ""
 
 
 

@@ -1,8 +1,5 @@
 import json
-import Helpers.LayoutFormatting as LayoutFormatting
-import Helpers.HtmlTagsAdding as HtmlTagsAdding
-import numpy as np
-import Helpers.HelperMethods as HelperMethods
+import code_generation.html_generating.layout_methods as layout_methods
 import zipfile
 import os
 import webbrowser
@@ -11,47 +8,47 @@ import glob
 
 # remove output files from the folder
 def removeOutputDataInHTML():
-    files = glob.glob('C:/Users/nadee/Documents/Mapping&Layout/html_generating/HtmlOutput/Web/*')
+
+    files = glob.glob('E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/*')
     for f in files:
         os.remove(f)
     return 1
-
 removeOutputDataInHTML()
 
-# Sorting Process and Distribution
+
+
 # Start reading the input.json file
 with open('../InputFiles/mapping_layouts.json') as f:
     data = json.load(f)  # load the file
 pages = len(data)  # calculate the number of pages
 reformated_dic = {}
 
+# Start reading the input.json file
+
 for page in data:  # Iterate through all pages
     top_values = []
     left_values = []
-
     for obj in data[page]:  # Go through all abjects and gat TOP and LEFT values. Then add to the array
         top = data[page][obj]["top"].split("%")[0]
         left = data[page][obj]["left"].split("%")[0]
+
         if not top in top_values:
             top_values.append(top)
-
         if not left in left_values:
             left_values.append(left)
-
     top_values.sort()  # Sort the top valus arrays
     left_values.sort()
 
-    sorted_object_array = HelperMethods.object_sort(page, data[page], top_values,
-                                                    left_values)  # Call to sort accrdingly left and top vales
-    x = HelperMethods.margin_adder(sorted_object_array)  # To add the margin top and margin left
+    sorted_object_array = layout_methods.sort(page, data[page], top_values,
+                                              left_values)  # Call to sort accrdingly left and top vales
+    x = layout_methods.add_margin(sorted_object_array)  # To add the margin top and margin left
 
-    x = HelperMethods.re_format(sorted_object_array)  # This shoud be updated to group objects
-
+    x = layout_methods.add_div(sorted_object_array)  # This shoud be updated to group objects
     reformated_dic.update({page: x})
 
     try:
-        with open("../InputFiles/middle.json", 'w+') as fs:
-            y = json.dumps(reformated_dic, indent=2, sort_keys=False, cls=HelperMethods.NumpyEncoder)
+        with open("../InputFiles/formated.json", 'w+') as fs:
+            y = json.dumps(reformated_dic, indent=2, sort_keys=False, cls=layout_methods.NumpyEncoder)
             fs.write(y)
 
     except Exception as e:
@@ -64,11 +61,10 @@ for page in data:  # Iterate through all pages
 newList = []
 
 # load json file
-with open('../InputFiles/middle.json') as json_data:
+with open('../InputFiles/formated.json') as json_data:
     loaded_json = json.load(json_data)
 
 # HTML code generation
-# i : count of the json(1,2...)
 for i in range(0, len(loaded_json) + 1):
     for key in loaded_json.keys():
         newList.append(key)
@@ -103,7 +99,7 @@ for i in range(0, len(loaded_json) + 1):
                                 # subattributes += "\n<" + loaded_json[newList[i]][z][x][y][
                                 #     'type'] + ">" + dropdownoptions + "</" + \
                                 #                  loaded_json[newList[i]][z][x][y]['type'] + ">"
-                                subattributes = HelperMethods.DropDownOption(loaded_json[newList[i]][z][x]['text'] , loaded_json[newList[i]][z][x][y]['text'])
+                                subattributes = layout_methods.DropDownOption(loaded_json[newList[i]][z][x]['text'], loaded_json[newList[i]][z][x][y]['text'])
 
                         else:
                             if y == "top" or y == "left" or y == "groupId":
@@ -157,17 +153,20 @@ for i in range(0, len(loaded_json) + 1):
                     style_all = style_all + "\" "
                     attributeWithStyles = attribute + style_all
 
-                    html_tag += "<" + HtmlTagsAdding.input_password(
+                    html_tag += "<" + layout_methods.input_password(
                         loaded_json[newList[i]][z][x][
-                            'type']) + " " + attributeWithStyles + LayoutFormatting.addClass(
-                        loaded_json[newList[i]][z][x]['type']) + ">" + subattributes + "   "+loaded_json[newList[i]][z][x][
-                                    'text'] + "</" + HtmlTagsAdding.input_password(
+                            'type']) + " " + attributeWithStyles + layout_methods.addClass(
+                        loaded_json[newList[i]][z][x]['type']) + ">" + subattributes + "   " + loaded_json[newList[i]][z][x][
+                                    'text'] + "</" + layout_methods.input_password(
                         loaded_json[newList[i]][z][x]['type']) + ">" + "\n"
                     if x == list(loaded_json[newList[i]][z].keys())[-1]:
                         html_tag += "</span>\n"
                 elif groupId != loaded_json[newList[i]][z][x]['groupId']:
                     html_tag += "</span>\n<span>\n"
                     groupId = loaded_json[newList[i]][z][x]['groupId']
+
+
+
                     for y in loaded_json[newList[i]][z][x]:
                         # define array for dropdown options
                         dropdownoptions = []
@@ -176,10 +175,7 @@ for i in range(0, len(loaded_json) + 1):
                             # read sub attributes
                             for xy in range(0, len(loaded_json[newList[i]][z][x][y])):
                                 dropdownoptions = loaded_json[newList[i]][z][x][y]['values'][xy]
-                                # subattributes += "\n<" + loaded_json[newList[i]][z][x][y][
-                                #     'type'] + ">" + dropdownoptions + "</" + \
-                                #                  loaded_json[newList[i]][z][x][y]['type'] + ">"
-                                subattributes = HelperMethods.DropDownOption(loaded_json[newList[i]][z][x]['text'] , loaded_json[newList[i]][z][x][y]['text'])
+                                subattributes = layout_methods.DropDownOption(loaded_json[newList[i]][z][x]['text'], loaded_json[newList[i]][z][x][y]['text'])
 
                         else:
                             if y == "top" or y == "left" or y == "groupId":
@@ -233,11 +229,11 @@ for i in range(0, len(loaded_json) + 1):
                     style_all = style_all + "\" "
                     attributeWithStyles = attribute + style_all
 
-                    html_tag += "<" + HtmlTagsAdding.input_password(
+                    html_tag += "<" + layout_methods.input_password(
                         loaded_json[newList[i]][z][x][
-                            'type']) + " " + attributeWithStyles + LayoutFormatting.addClass(
+                            'type']) + " " + attributeWithStyles + layout_methods.addClass(
                         loaded_json[newList[i]][z][x]['type']) + ">" + subattributes + "   " + loaded_json[newList[i]][z][x][
-                                    'text'] + "</" + HtmlTagsAdding.input_password(
+                                    'text'] + "</" + layout_methods.input_password(
                         loaded_json[newList[i]][z][x]['type']) + ">" + "\n"
                     if x == list(loaded_json[newList[i]][z].keys())[-1]:
                         html_tag += "</span>\n"
@@ -253,7 +249,7 @@ for i in range(0, len(loaded_json) + 1):
                                 # subattributes += "\n<" + loaded_json[newList[i]][z][x][y][
                                 #     'type'] + ">" + dropdownoptions + "</" + \
                                 #                  loaded_json[newList[i]][z][x][y]['type'] + ">"
-                                subattributes = HelperMethods.DropDownOption(loaded_json[newList[i]][z][x]['text'] , loaded_json[newList[i]][z][x][y]['text'])
+                                subattributes = layout_methods.DropDownOption(loaded_json[newList[i]][z][x]['text'], loaded_json[newList[i]][z][x][y]['text'])
 
                         else:
                             if y == "top" or y == "left" or y == "groupId":
@@ -307,11 +303,11 @@ for i in range(0, len(loaded_json) + 1):
                     style_all = style_all + "\" "
                     attributeWithStyles = attribute + style_all
 
-                    html_tag += "<" + HtmlTagsAdding.input_password(
+                    html_tag += "<" + layout_methods.input_password(
                         loaded_json[newList[i]][z][x][
-                            'type']) + " " + attributeWithStyles + LayoutFormatting.addClass(
+                            'type']) + " " + attributeWithStyles + layout_methods.addClass(
                         loaded_json[newList[i]][z][x]['type']) + ">" + subattributes + "   " + loaded_json[newList[i]][z][x][
-                                    'text'] + "</" + HtmlTagsAdding.input_password(
+                                    'text'] + "</" + layout_methods.input_password(
                         loaded_json[newList[i]][z][x]['type']) + ">" + "\n"
                     if x == list(loaded_json[newList[i]][z].keys())[-1]:
                         html_tag += "</span>\n"
@@ -324,39 +320,35 @@ for i in range(0, len(loaded_json) + 1):
                     div_key += "<div class=""\"media\">\n" + html_tag + "</div>\n"
 
             # div_key += "<div class=""\"media\">\n" + html_tag + "</div>\n"
-            add_divs_panel += HtmlTagsAdding.formSetUp(
-                loaded_json[newList[i]][z][x]['type']) + div_key + HtmlTagsAdding.formSetDown(
+            add_divs_panel += layout_methods.formSetUp(
+                loaded_json[newList[i]][z][x]['type']) + div_key + layout_methods.formSetDown(
                 loaded_json[newList[i]][z][x]['type'])
 
-        html += "<html>\n<head>\n" + LayoutFormatting.CSS_Scripts() + "\n</head>\n<body " + LayoutFormatting.BodyStyles() + ">\n" + HtmlTagsAdding.formSetUp(
-            loaded_json[newList[i]][z][x]['type']) + div_key + HtmlTagsAdding.formSetDown(
+        html += "<html>\n<head>\n" + layout_methods.CSS_Scripts() + "\n</head>\n<body " + layout_methods.BodyStyles() + ">\n" + layout_methods.formSetUp(
+            loaded_json[newList[i]][z][x]['type']) + div_key + layout_methods.formSetDown(
             loaded_json[newList[i]][z][x]['type']) + "</body>\n</html>"
         # open('Test' + newList[i] + '.html', 'w').write(html)
 
-        open("C:/Users/nadee/Documents/Mapping&Layout/html_generating/HtmlOutput/Web/" + newList[i] + '.html', 'w').write(html)
+        open("E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/" + newList[i] + '.html', 'w').write(html)
 
     try:
-        with open("C:/Users/nadee/Documents/Mapping&Layout/html_generating/HtmlOutput/Web/" + newList[i] + '.html', 'w').write(
+        with open("E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/" + newList[i] + '.html', 'w').write(
                 html) as fs:
-            y = json.dumps(reformated_dic, indent=2, sort_keys=False, cls=HelperMethods.NumpyEncoder)
+            y = json.dumps(reformated_dic, indent=2, sort_keys=False, cls=layout_methods.NumpyEncoder)
             fs.write(y)
-
     except Exception as e:
-        print("Generate HTML, Reson : " + str(e))
         pass
 
 # Change path to reflect file location
-filename = "C:/Users/nadee/Documents/Mapping&Layout/html_generating/HtmlOutput/Web/" + newList[0] + '.html'
+filename = "E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/" + newList[0] + '.html'
 webbrowser.open_new_tab(filename)
 
 
-def zipdir(path, ziph):
+def dir_of_zip(path, ziph):
     # ziph is zipfile handle
     for root, dirs, files in os.walk(path):
         for file in files:
             ziph.write(os.path.join(root, file))
-
-
-zipf = zipfile.ZipFile('web.zip', 'w', zipfile.ZIP_DEFLATED)
-zipdir("C:/Users/nadee/Documents/Mapping&Layout/html_generating/HtmlOutput/Web", zipf)
+zipf = zipfile.ZipFile('webpages.zip', 'w', zipfile.ZIP_DEFLATED)
+dir_of_zip("E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/", zipf)
 zipf.close()

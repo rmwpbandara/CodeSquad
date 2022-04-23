@@ -2,7 +2,9 @@ import cv2
 import numpy as np
 import shape_recognize.lib.api as API
 import shape_recognize.main as SHAPE_RECOGNIZE
+import code_generation.html_generating.layoutcreate as HTML_GENERATION
 import sys
+import code_generation.html_generating.htmlgenerate as HG
 
 def run(file):
     all_page_data = []
@@ -54,17 +56,19 @@ def run(file):
                     continue
                 else:
                     # print(element_name)
-                    page_data.append([[element_name,"HPL-1"], [x, y, w, h]])
+                    page_data.append([[API.realNameOfElement(element_name),element_name], [x, y, w, h]])
                     # page_data.append([[element_name], [x, y], [x + w, y], [x + w, y + h], [x, y + h]])
                     # SHAPE_RECOGNIZE.drawShapeRecognizeOutput(element_name, img_copy, cnt, img, percentage)  #
 
-        all_page_data.append([[page_name,page_width], page_data])  # append all pages data to all page array
+        all_page_data.append([[page_name.rsplit('.', 1)[0],page_width], page_data])  # append all pages data to all page array
         # all_page_data.append([[width, height], [page_name], [page_data]])  # append all pages data to all page array
 
     print("--------------------------------------")
     print("Success Shape Recognize and Text Recognize")
 
     print(all_page_data)
+
+    HTML_GENERATION.htmlGeneration(all_page_data)
 
     return 1
 
@@ -75,7 +79,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         file = sys.argv[1]
     else:
-        file = "Login_3.jpg"
+        file = "about.jpg"
     print('[INFO] start processing file: ' + file)
 
     # execute main process

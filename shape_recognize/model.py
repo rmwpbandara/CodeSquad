@@ -13,7 +13,7 @@ class Elements:
         self.HPL = []
         self.IMG = []
         self.TEXT = []
-        self.HPLINK = []
+        self.HPL = []
         self.PW = []
         self.RB = []
         self.LBL = []
@@ -37,8 +37,8 @@ class Elements:
     def addTEXT(self, value):
         self.TEXT.append(value)
 
-    def addHPLINK(self, value):
-        self.HPLINK.append(value)
+    def addHPL(self, value):
+        self.HPL.append(value)
 
     def addPW(self, value):
         self.PW.append(value)
@@ -116,7 +116,7 @@ class Features:
             self.E.addDD(5)
             self.E.addHPL(5)
             self.E.addTEXT(5)
-            self.E.addHPLINK(5)
+            self.E.addHPL(5)
             self.innerCnt2Shape()
             self.contourCount2Special()
 
@@ -145,6 +145,15 @@ class Features:
 
         return self.E
 
+    def labelFeatures(self):
+        shape, approx = API.shape(self.EC[self.LCI])
+
+        if shape == "rectangle":
+            self.E.addLBL(5)
+            return self.E
+        else:
+            return self.E
+
     def externalShape(self):
         shape, approx = API.shape(self.EC[self.LCI])
 
@@ -156,7 +165,7 @@ class Features:
             self.E.addHPL(5)
             self.E.addIMG(5)
             self.E.addTEXT(5)
-            self.E.addHPLINK(5)
+            self.E.addHPL(5)
             self.E.addPW(5)
             self.E.addRB(5)
             self.E.addLBL(5)
@@ -195,13 +204,13 @@ class Features:
             child_shape, points = API.shape(self.TC[cntIdx])
             if child_shape == "triangle":
                 # print("innerCnt2Shape == triangle")
-                self.E.addHPLINK(2.5)
+                self.E.addHPL(2.5)
             elif child_shape == "rectangle":
                 # print("innerCnt2Shape == rectangle")
                 self.E.addDD(2.5)
                 self.E.addHPL(2.5)
                 self.E.addTEXT(2.5)
-                self.E.addHPLINK(2.5)
+                self.E.addHPL(2.5)
             elif child_shape == "square":
                 # print("innerCnt2Shape == square")
                 self.E.addDD(2.5)
@@ -210,7 +219,7 @@ class Features:
                 # print("innerCnt2Shape == else")
                 self.E.addHPL(2.5)
                 self.E.addIMG(2.5)
-                self.E.addHPLINK(2.5)
+                self.E.addHPL(2.5)
 
         return self.E
 
@@ -276,7 +285,7 @@ class Features:
             self.dropdownSpecial(right_cnt_index)
         else:
             self.E.addTEXT(5)
-            self.E.addHPLINK(5)
+            self.E.addHPL(5)
             self.labelSpecial(left_cnt_index)
 
         # MLP = Most left point of parent
@@ -312,7 +321,7 @@ class Features:
     def paragraphSpecial(self, parent_width, MLC1, MLC2):
 
         if parent_width * 0.1 > abs(MLC1[0] - MLC2[0]):
-            self.E.addHPLINK(75)
+            self.E.addHPL(75)
             return self.E
         else:
             return self.E
