@@ -13,10 +13,10 @@ def elementPreProcessing(img):  # precessing cropped image to recognize shape
                                                   cv2.CHAIN_APPROX_SIMPLE)  # find external contour
     _, contoursRT, hierarchyRT = cv2.findContours(closing, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)  # find tree contours
 
-    # blankImg = np.zeros((600, 1200, 3), np.uint8)
-    # cv2.drawContours(blankImg, contoursRT, -1, (255, 255, 0), 1)
-    # cv2.imshow("test", blankImg)
-    # cv2.waitKey(0)
+    blankImg = np.zeros((600, 1200, 3), np.uint8)
+    cv2.drawContours(blankImg, contoursRT, -1, (255, 255, 0), 1)
+    cv2.imshow("test", blankImg)
+    cv2.waitKey(0)
 
     return contoursRE, hierarchyRE, contoursRT, hierarchyRT
 
