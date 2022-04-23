@@ -646,6 +646,7 @@ def htmlGeneration(shapes):
     print("Success Mapping and Layout Design")
 
     #HG.removeOutputDataInHTML()
+    HG.generateHtml()
 
 
 if __name__ == "__main__":

@@ -2,9 +2,8 @@ import cv2
 import numpy as np
 import shape_recognize.lib.api as API
 import shape_recognize.main as SHAPE_RECOGNIZE
-import code_generation.html_generating.layoutcreate as HTML_GENERATION
+import code_generation.html_generating.layoutcreate as LAYOUT_CREATE
 import sys
-import code_generation.html_generating.htmlgenerate as HG
 
 def run(file):
     all_page_data = []
@@ -68,7 +67,7 @@ def run(file):
 
     print(all_page_data)
 
-    HTML_GENERATION.htmlGeneration(all_page_data)
+    LAYOUT_CREATE.htmlGeneration(all_page_data)
 
     return 1
 
