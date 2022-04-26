@@ -13,11 +13,11 @@ class Elements:
         self.HPL = []
         self.IMG = []
         self.TEXT = []
-        self.HPL = []
         self.PW = []
         self.RB = []
         self.LBL = []
         self.CNN = []
+        self.PRGF = []
 
     def addBTN(self, value):
         self.BTN.append(value)
@@ -37,9 +37,6 @@ class Elements:
     def addTEXT(self, value):
         self.TEXT.append(value)
 
-    def addHPL(self, value):
-        self.HPL.append(value)
-
     def addPW(self, value):
         self.PW.append(value)
 
@@ -48,6 +45,9 @@ class Elements:
 
     def addLBL(self, value):
         self.LBL.append(value)
+
+    def addPRGF(self, value):
+        self.PRGF.append(value)
 
     def addCNN(self, description, name_of_data, data):
         self.CNN.append([description, name_of_data, data])
@@ -102,11 +102,12 @@ class Features:
             self.E.addBTN(5)
             self.E.addRB(5)
             self.E.addLBL(5)
+            self.E.addPRGF(5)
             self.innerCnt1Shape()
             self.supperInnerCnt1Shape()
             self.errorSolvedCnt1()
             self.imageSpecial()
-
+            self.paragraphSpecialFeatures()
             # cv2.drawContours(img, contoursRT, -1, (255, 0, 0), 1)
             # cv2.imshow("image", img)
             # cv2.waitKey(0)
@@ -114,7 +115,6 @@ class Features:
         elif self.count == 2:
             # print("count == 2")
             self.E.addDD(5)
-            self.E.addHPL(5)
             self.E.addTEXT(5)
             self.E.addHPL(5)
             self.innerCnt2Shape()
@@ -162,13 +162,14 @@ class Features:
             self.E.addBTN(5)
             self.E.addCB(5)
             self.E.addDD(5)
-            self.E.addHPL(5)
             self.E.addIMG(5)
             self.E.addTEXT(5)
             self.E.addHPL(5)
             self.E.addPW(5)
             self.E.addRB(5)
             self.E.addLBL(5)
+            self.E.addPRGF(5)
+
             return self.E
 
         elif shape == "square":
@@ -193,6 +194,7 @@ class Features:
                 self.E.addBTN(10)
                 self.E.addRB(10)
                 self.E.addLBL(10)
+                self.E.addPRGF(5)
             elif child_shape == "square":
                 # print("innerCnt1Shape == square")
 
@@ -210,7 +212,6 @@ class Features:
                 self.E.addDD(2.5)
                 self.E.addHPL(2.5)
                 self.E.addTEXT(2.5)
-                self.E.addHPL(2.5)
             elif child_shape == "square":
                 # print("innerCnt2Shape == square")
                 self.E.addDD(2.5)
@@ -219,7 +220,6 @@ class Features:
                 # print("innerCnt2Shape == else")
                 self.E.addHPL(2.5)
                 self.E.addIMG(2.5)
-                self.E.addHPL(2.5)
 
         return self.E
 
@@ -295,7 +295,7 @@ class Features:
         MLC2, MRC2, MTC2, MBC2 = API.mostLRTB(c2)
         parent_width = abs(MLP[0] - MRP[0])
 
-        self.paragraphSpecial(parent_width, MLC1, MLC2)
+        # self.paragraphSpecial(parent_width, MLC1, MLC2)
         self.hyperlinkSpecial(parent_width, MRC1, MRC2)
 
         return self.E
@@ -318,13 +318,13 @@ class Features:
         else:
             return self.E
 
-    def paragraphSpecial(self, parent_width, MLC1, MLC2):
-
-        if parent_width * 0.1 > abs(MLC1[0] - MLC2[0]):
-            self.E.addHPL(75)
-            return self.E
-        else:
-            return self.E
+    # def paragraphSpecial(self, parent_width, MLC1, MLC2):
+    #
+    #     if parent_width * 0.1 > abs(MLC1[0] - MLC2[0]):
+    #         self.E.addHPL(75)
+    #         return self.E
+    #     else:
+    #         return self.E
 
     def hyperlinkSpecial(self, parent_width, MRC1, MRC2):
 
@@ -338,7 +338,7 @@ class Features:
         for cntIdx in self.child_ctn_idxs:
             super_child_count, super_child_idxs = API.countInnerCtn(self.TC, self.TH, cntIdx)
 
-            print(super_child_count)
+            # print(super_child_count)
             if super_child_count == 2:
 
                 child_shape1, points1 = API.shape(self.TC[super_child_idxs[0]])
@@ -362,6 +362,29 @@ class Features:
             else:
                 continue
         return self.E
+
+    def paragraphSpecialFeatures(self):
+
+        for cntIdx in self.child_ctn_idxs:
+            super_child_count, super_child_idxs = API.countInnerCtn(self.TC, self.TH, cntIdx)
+            if super_child_count == 3:
+                self.E.addPRGF(50)
+                x, y = API.centerOfContour(self.TC[self.PCI])
+                for super_child_idx in super_child_idxs:
+                    cx, cy = API.centerOfContour(self.TC[super_child_idx])
+                    if x+8 > cx and x-8 < cx:
+                        self.E.addPRGF(10)
+                    else:
+                        continue
+        return self.E
+
+        # blank_image = np.zeros((400, 400, 3), np.uint8)
+        # blank_image = cv2.circle(blank_image, (x,y), 5, (255,0,0), 1)
+        #
+        # cv2.drawContours(blank_image, self.TC, super_child_idxs[0], (0, 255, 255), 1)
+        # # cv2.drawContours(blank_image, self.TC, -1, (0, 255, 255), 1)
+        # cv2.imshow("test =", blank_image)
+        # cv2.waitKey(0)
 
     def checkBoxSpecial(self):
         x, y = API.centerOfContour(self.TC[self.PCI])

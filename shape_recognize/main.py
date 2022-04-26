@@ -13,7 +13,7 @@ def elementPreProcessing(img):  # precessing cropped image to recognize shape
                                                   cv2.CHAIN_APPROX_SIMPLE)  # find external contour
     _, contoursRT, hierarchyRT = cv2.findContours(closing, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)  # find tree contours
 
-    blankImg = np.zeros((600, 600, 3), np.uint8)
+    blankImg = np.zeros((400, 400, 3), np.uint8)
     cv2.drawContours(blankImg, contoursRT, -1, (255, 255, 0), 1)
     cv2.imshow("test", blankImg)
     cv2.waitKey(0)
@@ -40,7 +40,7 @@ def shapeRecognizeMain(image):
 
     # create total data array to analysing data
     total = [["BTN", np.sum(E.BTN)], ["CB", np.sum(E.CB)], ["DD", np.sum(E.DD)], ["HPL", np.sum(E.HPL)],
-             ["IMG", np.sum(E.IMG)], ["TEXT", np.sum(E.TEXT)], ["HPL", np.sum(E.HPL)], ["PW", np.sum(E.PW)],
+             ["IMG", np.sum(E.IMG)], ["TEXT", np.sum(E.TEXT)], ["PRGF", np.sum(E.PRGF)], ["PW", np.sum(E.PW)],
              ["RB", np.sum(E.RB)], ["LBL", np.sum(E.LBL)]]
 
     # total = sorted(total, key=lambda total_entry: total_entry[1])
