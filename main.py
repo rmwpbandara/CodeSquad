@@ -69,7 +69,7 @@ def run(file):
 
     LAYOUT_CREATE.htmlGeneration(all_page_data)
 
-    return 1
+    # return 1
 
 
 if __name__ == "__main__":
@@ -78,7 +78,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         file = sys.argv[1]
     else:
-        file = "Profile_2.jpg"
+        file = "Login_4.jpg"
     print('[INFO] start processing file: ' + file)
 
     # execute main process

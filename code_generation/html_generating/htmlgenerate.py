@@ -9,7 +9,7 @@ import glob
 # remove output files from the folder
 def removeOutputDataInHTML():
 
-    files = glob.glob('E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/*')
+    files = glob.glob('C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/html_generating/HtmlOutput/webpages/*')
     for f in files:
         os.remove(f)
     return 1
@@ -19,7 +19,7 @@ removeOutputDataInHTML()
 def generateHtml():
 
     # Start reading the input.json file
-    with open('E:/Personal/New folder/CodeSquad/code_generation/InputFiles/mapping_layouts.json') as f:
+    with open('C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/InputFiles/mapping_layouts.json') as f:
         data = json.load(f)  # load the file
     pages = len(data)  # calculate the number of pages
     reformated_dic = {}
@@ -48,7 +48,7 @@ def generateHtml():
         reformated_dic.update({page: x})
 
         try:
-            with open("../InputFiles/formated.json", 'w+') as fs:
+            with open("C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/InputFiles/formated.json", 'w+') as fs:
                 y = json.dumps(reformated_dic, indent=2, sort_keys=False, cls=layout_methods.NumpyEncoder)
                 fs.write(y)
 
@@ -62,7 +62,7 @@ def generateHtml():
     newList = []
 
     # load json file
-    with open('E:/Personal/New folder/CodeSquad/code_generation/InputFiles/formated.json') as json_data:
+    with open('C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/InputFiles/formated.json') as json_data:
         loaded_json = json.load(json_data)
 
     # HTML code generation
@@ -330,10 +330,10 @@ def generateHtml():
                 loaded_json[newList[i]][z][x]['type']) + "</body>\n</html>"
             # open('Test' + newList[i] + '.html', 'w').write(html)
 
-            open("E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/" + newList[i] + '.html', 'w').write(html)
+            open("C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/html_generating/HtmlOutput/webpages/" + newList[i] + '.html', 'w').write(html)
 
         try:
-            with open("E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/" + newList[i] + '.html', 'w').write(
+            with open("C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/html_generating/HtmlOutput/webpages/" + newList[i] + '.html', 'w').write(
                     html) as fs:
                 y = json.dumps(reformated_dic, indent=2, sort_keys=False, cls=layout_methods.NumpyEncoder)
                 fs.write(y)
@@ -341,7 +341,7 @@ def generateHtml():
             pass
 
     # Change path to reflect file location
-    filename = "E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/" + newList[0] + '.html'
+    filename = "C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/html_generating/HtmlOutput/webpages/" + newList[0] + '.html'
     webbrowser.open_new_tab(filename)
 
 
@@ -351,5 +351,5 @@ def generateHtml():
             for file in files:
                 ziph.write(os.path.join(root, file))
     zipf = zipfile.ZipFile('webpages.zip', 'w', zipfile.ZIP_DEFLATED)
-    dir_of_zip("E:/Personal/New folder/CodeSquad/code_generation/html_generating/HtmlOutput/webpages/", zipf)
+    dir_of_zip("C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/html_generating/HtmlOutput/webpages/", zipf)
     zipf.close()

@@ -1,73 +1,88 @@
 {
-        "about": {
-                "HPL-1": {
-                        "type": "a",
+        "Welcome": {
+                "LBL-1": {
+                        "type": "label",
+                        "groupId": "",
+                        "text": "Label",
+                        "top": "01%",
+                        "left": "6%",
+                        "width": "6%",
+                        "height": "10%"
+                },
+                "PW-1": {
+                        "type": "password",
                         "groupId": "1",
-                        "href": "1.html",
-                        "text": "Hyperlink",
-                        "top": "08%",
-                        "left": "2%",
-                        "width": "18%",
-                        "height": "15%"
-                },
-                "HPL-2": {
-                        "type": "a",
-                        "groupId": "2",
-                        "href": "2.html",
-                        "text": "Hyperlink",
-                        "top": "08%",
-                        "left": "25%",
-                        "width": "20%",
-                        "height": "13%"
-                },
-                "HPL-3": {
-                        "type": "a",
-                        "groupId": "3",
-                        "href": "3.html",
-                        "text": "Hyperlink",
-                        "top": "08%",
-                        "left": "49%",
-                        "width": "19%",
-                        "height": "12%"
-                },
-                "HPL-4": {
-                        "type": "a",
-                        "groupId": "4",
-                        "href": "4.html",
-                        "text": "Hyperlink",
-                        "top": "08%",
-                        "left": "73%",
-                        "width": "17%",
-                        "height": "11%"
-                },
-                "HPL-5": {
-                        "type": "a",
-                        "groupId": "5",
-                        "href": "5.html",
-                        "text": "Hyperlink",
-                        "top": "28%",
-                        "left": "25%",
-                        "width": "37%",
-                        "height": "21%"
+                        "text": "",
+                        "placeholder": "Type your Password",
+                        "top": "60%",
+                        "left": "11%",
+                        "width": "6%",
+                        "height": "8%"
                 },
                 "IMG-1": {
                         "type": "img",
-                        "groupId": "6",
+                        "groupId": "2",
                         "text": " ",
-                        "top": "53%",
-                        "left": "36%",
-                        "width": "17%",
-                        "height": "19%"
+                        "top": "15%",
+                        "left": "7%",
+                        "width": "5%",
+                        "height": "20%"
                 },
-                "HPL-6": {
-                        "type": "a",
-                        "groupId": "7",
-                        "href": "6.html",
-                        "text": "Hyperlink",
-                        "top": "75%",
-                        "left": "17%",
-                        "width": "54%",
-                        "height": "24%"
+                "IMG-2": {
+                        "type": "img",
+                        "groupId": "3",
+                        "text": " ",
+                        "top": "39%",
+                        "left": "3%",
+                        "width": "4%",
+                        "height": "18%"
+                },
+                "PRGF-1": {
+                        "type": "h2",
+                        "groupId": "4",
+                        "alignment": "h3",
+                        "text": "Paragraph",
+                        "top": "39%",
+                        "left": "10%",
+                        "width": "5%",
+                        "height": "15%"
+                },
+                "LBL-2": {
+                        "type": "label",
+                        "groupId": "",
+                        "text": "Label",
+                        "top": "60%",
+                        "left": "4%",
+                        "width": "5%",
+                        "height": "12%"
+                },
+                "PW-2": {
+                        "type": "password",
+                        "groupId": "5",
+                        "text": "",
+                        "placeholder": "Type your Password",
+                        "top": "73%",
+                        "left": "11%",
+                        "width": "6%",
+                        "height": "7%"
+                },
+                "LBL-3": {
+                        "type": "label",
+                        "groupId": "",
+                        "text": "Label",
+                        "top": "73%",
+                        "left": "4%",
+                        "width": "6%",
+                        "height": "12%"
+                },
+                "BTN-1": {
+                        "type": "submit",
+                        "groupId": "6",
+                        "text": "Button",
+                        "top": "86%",
+                        "left": "9%",
+                        "width": "5%",
+                        "height": "13%"
                 }
         }
 }

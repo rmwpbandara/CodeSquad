@@ -638,10 +638,11 @@ def htmlGeneration(shapes):
 
     import json
 
-    with open("E:/Personal/New folder/CodeSquad/code_generation/InputFiles/mapping_layouts.json", "w") as outfile:
+    with open("C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/InputFiles/mapping_layouts.json", "w") as outfile:
         json.dump(final_output, outfile, indent=8)
 
-    with open('E:/Personal/New folder/CodeSquad/code_generation/InputFiles/mapping_layouts.json') as json_data:
+
+    with open('C:/Users/rmwpb/Desktop/Sketch-to-Html/code_generation/InputFiles/mapping_layouts.json') as json_data:
         loaded_json = json.load(json_data)
     print("Success Mapping and Layout Design")
 

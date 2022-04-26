@@ -190,8 +190,8 @@ def realNameOfElement(element_keyword):  # if received key of element, return re
         return "Image"
     elif element_keyword == "TEXT":
         return "Text Field"
-    elif element_keyword == "HPL":
-        return "Hyperlink"
+    elif element_keyword == "PRGF":
+        return "Paragraph"
     elif element_keyword == "PW":
         return "Password"
     elif element_keyword == "RB":

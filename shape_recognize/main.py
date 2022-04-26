@@ -52,7 +52,7 @@ def shapeRecognizeMain(image):
     ElementMax = max(total, key=lambda total_entry: total_entry[
         1])  # get max values of weighted data and get that element data
 
-    if int(ElementMax[1]) == 0 or int(ElementMax[1]) > 120:  # if element max have 0 or grater than 120, skip it
+    if int(ElementMax[1]) == 0 or int(ElementMax[1]) > 200:  # if element max have 0 or grater than 120, skip it
         return 0, "none"
     else:
 
